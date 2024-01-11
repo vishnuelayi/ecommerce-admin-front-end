@@ -1,48 +1,70 @@
-Certainly! Here's a sample Git repository description for an admin front-end of an e-commerce app:
+# Getting Started with Create React App
 
----
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-**E-Commerce Admin Front-End**
+## Available Scripts
 
-Welcome to the E-Commerce Admin Front-End repository! This project provides a user-friendly and feature-rich admin interface for managing and controlling various aspects of your e-commerce application. Built using modern web technologies, it offers a seamless experience for administrators to efficiently handle product management, order processing, and user-related tasks.
+In the project directory, you can run:
 
-### Key Features:
+### `npm start`
 
-- **Responsive Dashboard:** An intuitive and responsive dashboard providing a quick overview of crucial metrics and activities.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-- **Product Management:** Easily add, edit, or remove products, update product details, and manage inventory effortlessly.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-- **Order Management:** Streamlined order processing with features for viewing, processing, and managing customer orders.
+### `npm test`
 
-- **User Administration:** Efficient tools for managing user accounts, including user roles, permissions, and authentication settings.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-- **Analytics and Reporting:** Generate and view reports on sales, user activity, and other key performance indicators to make informed decisions.
+### `npm run build`
 
-- **Customizable Themes:** Personalize the admin interface with customizable themes to match your brand or preferences.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Getting Started:
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-1. Clone the repository: `git clone https://github.com/vishnuelayi/ecommerce-admin-front-end.git`
-2. Install dependencies: `npm install`
-3. Configure API Endpoints: Update the configuration file (`src/config.js`) with the appropriate API endpoints for communication with the backend.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### Contributing:
+### `npm run eject`
 
-We encourage contributions! If you'd like to contribute to the project, please follow our [contribution guidelines](CONTRIBUTING.md).
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-### Tech Stack:
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-- React.js
-- Redux (or state management library of choice)
-- Bootstrap (or preferred CSS framework)
-- Axios (or preferred HTTP client)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-### License:
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Learn More
 
-Feel free to explore the codebase, contribute, or use this project as a foundation for the admin interface of your own e-commerce applications. Happy coding!
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
---- 
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Customize this description based on the specific technologies and features used in your admin front-end, and include any additional information relevant to your project.
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
