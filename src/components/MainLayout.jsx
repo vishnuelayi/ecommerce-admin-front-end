@@ -198,6 +198,7 @@ const MainLayout = () => {
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
+          
           }}
         >
           <Outlet />
