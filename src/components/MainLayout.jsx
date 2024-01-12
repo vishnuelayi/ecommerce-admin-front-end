@@ -78,19 +78,19 @@ const MainLayout = () => {
                   label: "Product List",
                 },
                 {
-                  key: "category",
+                  key: "add-brand",
                   icon: <BrandIcon className="fs-4" />,
-                  label: "Brand",
+                  label: "Add Brand",
                 },
                 {
-                  key: "category-list",
+                  key: "brand-list",
                   icon: <BrandListIcon className="fs-4" />,
                   label: "Brand List",
                 },
                 {
-                  key: "category",
+                  key: "add-category",
                   icon: <CategoryIcon className="fs-4" />,
-                  label: "Category",
+                  label: "Add Category",
                 },
                 {
                   key: "category-list",
@@ -98,9 +98,9 @@ const MainLayout = () => {
                   label: "Category List",
                 },
                 {
-                  key: "color-list",
+                  key: "color",
                   icon: <ColorIcon className="fs-4" />,
-                  label: "Color",
+                  label: "Add Color",
                 },
                 {
                   key: "color-list",
@@ -140,7 +140,7 @@ const MainLayout = () => {
                   label: "Blog Categories",
                 },
                 {
-                  key: "blog-category",
+                  key: "add-blog-category",
                   icon: <AddBlogCategory className="fs-4" />,
                   label: "Add Blog Category",
                 },

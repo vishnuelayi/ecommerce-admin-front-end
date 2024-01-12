@@ -1,32 +1,111 @@
 import React from "react";
 import { FaArrowTrendDown as ArrowDownIcon } from "react-icons/fa6";
 import { FaArrowTrendUp as ArrowUpIcon } from "react-icons/fa6";
-import DemoColumn from "../components/Chart";
+import { Column } from '@ant-design/plots';
 import { Table } from "antd";
+
+
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'S.No',
+    dataIndex: 'id',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
+    title: 'Order Date', 
+    dataIndex: 'orderDate',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
+    title: 'Order ID',
+    dataIndex: 'orderId',
   },
+  {
+    title: 'Customer', 
+    dataIndex: 'customer',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status'
+  }
 ];
+
 const data1 = [];
 for (let i = 0; i < 46; i++) {
   data1.push({
     key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
+    id: i,
+    customer: `Edward King ${i}`,
+    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
+    orderId: `FDA20140${i}`,
+    status: `status ${i}`,  
   });
 }
+
+const data = [
+  {
+    type: '家具家电',
+    sales: 38,
+  },
+  {
+    type: '粮油副食',
+    sales: 52,
+  },
+  {
+    type: '生鲜水果',
+    sales: 61,
+  },
+  {
+    type: '美容洗护',
+    sales: 145,
+  },
+  {
+    type: '母婴用品',
+    sales: 48,
+  },
+  {
+    type: '进口食品',
+    sales: 38,
+  },
+  {
+    type: '食品饮料',
+    sales: 38,
+  },
+  {
+    type: '家庭清洁',
+    sales: 38,
+  },
+];
+
+const config = {
+  data,
+  xField: 'type',
+  yField: 'sales',
+  label: {
+    // 可手动配置 label 数据标签位置
+    position: 'middle',
+    // 'top', 'bottom', 'middle',
+    // 配置样式
+    style: {
+      fill: '#FFFFFF',
+      opacity: 0.6,
+    },
+  },
+  xAxis: {
+    label: {
+      autoHide: true,
+      autoRotate: false,
+    },
+  },
+  meta: {
+    type: {
+      alias: '类别',
+    },
+    sales: {
+      alias: '销售额',
+    },
+  },
+};
+
 
 function Dashboard() {
   return (
@@ -75,7 +154,7 @@ function Dashboard() {
       <div className="mt-4">
         <h3 className="mt-4">Income Statistics</h3>
         <div>
-          <DemoColumn />
+        <Column {...config} />
         </div>
       </div>
 
