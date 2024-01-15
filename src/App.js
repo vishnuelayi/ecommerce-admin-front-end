@@ -19,6 +19,9 @@ import AddBlog from "./pages/AddBlog";
 import AddBlogCat from "./pages/AddBlogCat";
 import AddColor from "./pages/Color";
 import AddBrand from "./pages/AddBrand";
+import AddCoupon from "./pages/AddCoupon";
+import CouponList from "./pages/CouponList";
+import AddProduct from "./pages/AddProduct";
 
 function App() {
   return (
@@ -42,7 +45,10 @@ function App() {
           <Route path="category-list" element={<CategoryList />} />
           <Route path="add-brand" element={<AddBrand />} />
           <Route path="brand-list" element={<BrandList />} />
+          <Route path="add-product" element={<AddProduct />} />
           <Route path="product-list" element={<ProductList />} />
+          <Route path="add-coupon" element={<AddCoupon />} />
+          <Route path="coupon-list" element={<CouponList />} />
         </Route>
       </Routes>
     </Router>

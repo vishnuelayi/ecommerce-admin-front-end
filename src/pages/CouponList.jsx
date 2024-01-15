@@ -36,10 +36,10 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
-function BlogCatList() {
+function CouponList() {
   return (
     <div className="mt-4">
-      <h3 className="mt-4 title">Blog Category List</h3>
+      <h3 className="mt-4 title">Coupons</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -47,4 +47,4 @@ function BlogCatList() {
   );
 }
 
-export default BlogCatList;
+export default CouponList;

@@ -4,7 +4,7 @@ import CostumInput from "../components/CostumInput";
 function AddBlogCat() {
   return (
     <div>
-      <h3 className="mt-4">Add Blog Category</h3>
+      <h3 className="mt-4 title">Add Blog Category</h3>
       <div className="mt-4">
         <CostumInput
           label="Blog Category Name"

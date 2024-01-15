@@ -5,7 +5,7 @@ import CostumInput from "../components/CostumInput";
 function AddCategory() {
   return (
     <div>
-      <h3 className="mt-4">Add Category</h3>
+      <h3 className="mt-4 title">Add Category</h3>
       <div className="mt-4">
         <CostumInput
           label="Category Name"

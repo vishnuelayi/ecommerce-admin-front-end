@@ -27,7 +27,7 @@ const props = {
   },
 };
 
-function AddBlog() {
+function AddProduct() {
   const [desc, setDesc] = useState("");
 
   const handleDesc = (e) => {
@@ -35,7 +35,46 @@ function AddBlog() {
   };
   return (
     <div>
-      <Dragger {...props}>
+      <h3 className="mt-4 title">Add Product</h3>
+      <div className="mt-4">
+        <CostumInput
+          label="Product Name"
+          i_id="addPoductName"
+          i_class="form-control"
+          type="text"
+        />
+
+        <ReactQuill
+          theme="snow"
+          value={desc}
+          onChange={(e) => {
+            handleDesc(e);
+          }}
+          placeholder="Product Description"
+        />
+
+        <div className="mt-4">
+          <CostumInput
+            label="Product Price"
+            i_id="addPoductPrice"
+            i_class="form-control"
+            type="number"
+          />
+        </div>
+
+        <select className="form-control py-3 mb-3 ">
+          <option>Select Category</option>
+        </select>
+
+        <select className="form-control py-3 mb-3 ">
+          <option>Select Brand</option>
+        </select>
+
+        <select className="form-control py-3 mb-3 ">
+          <option>Select Color</option>
+        </select>
+
+        <Dragger {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
@@ -47,32 +86,10 @@ function AddBlog() {
           uploading company data or other banned files.
         </p>
       </Dragger>
-      <h3 className="mt-4 title">Add Blog</h3>
-
-      <div>
-        <form action="">
-        <div className="mt-4">
-        <CostumInput type="text" label="Blog Title" name="title" />
-        </div>
-          
-          <select className="form-control py-3 mt-3" name="category">
-            <option value="">Select Blog Category</option>
-          </select>
-          <ReactQuill
-            theme="snow"
-            value={desc}
-            onChange={(e) => {
-              handleDesc(e);
-            }}
-            placeholder="Write your blog here..."
-          />
-          <button type="submit" className="btn btn-primary mt-3">
-            Add Blog
-          </button>
-        </form>
       </div>
+      <button className="btn btn-primary mt-3">Add Product</button>
     </div>
   );
 }
 
-export default AddBlog;
+export default AddProduct;
