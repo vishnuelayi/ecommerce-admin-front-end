@@ -118,7 +118,7 @@ const MainLayout = () => {
                   key: "coupon-list",
                   icon: <CouponIcon className="fs-4" />,
                   label: "Coupon List",
-                }
+                },
               ],
             },
             {
@@ -186,19 +186,47 @@ const MainLayout = () => {
                 3
               </span>
             </div>
-            <div className="d-flex align-items-center gap-3">
-              <div>
-                <img
-                  className="w-0.5"
-                  src="https://th.bing.com/th/id/R.8e2c571ff125b3531705198a15d3103c?rik=gzhbzBpXBa%2bxMA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fuser-png-icon-big-image-png-2240.png&ehk=VeWsrun%2fvDy5QDv2Z6Xm8XnIMXyeaz2fhR3AgxlvxAc%3d&risl=&pid=ImgRaw&r=0"
-                  width={32}
-                  height={32}
-                />
-              </div>
+            <div>
+              <div
+                className="d-flex align-items-center gap-3 dropdown"
+                
+              >
+                <div role="button"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                  <img
+                    className="w-0.5"
+                    src="https://th.bing.com/th/id/R.8e2c571ff125b3531705198a15d3103c?rik=gzhbzBpXBa%2bxMA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fuser-png-icon-big-image-png-2240.png&ehk=VeWsrun%2fvDy5QDv2Z6Xm8XnIMXyeaz2fhR3AgxlvxAc%3d&risl=&pid=ImgRaw&r=0"
+                    width={32}
+                    height={32}
+                  />
+                </div>
 
-              <div>
-                <h5 className="m-0 p-0">Joseph Ann</h5>
-                {/* <p className="p-0 m-0">joshephann@gamil.com</p> */}
+                <div>
+                  <h5 className="m-0 p-0">Joseph Ann</h5>
+                  {/* <p className="p-0 m-0">joshephann@gamil.com</p> */}
+                </div>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuLink"
+                >
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Action
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </div>
               </div>
             </div>
           </div>
@@ -210,7 +238,6 @@ const MainLayout = () => {
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
-          
           }}
         >
           <Outlet />

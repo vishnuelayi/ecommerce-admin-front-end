@@ -35,7 +35,7 @@ function AddProduct() {
   };
   return (
     <div>
-      <h3 className="mt-4">Add Product</h3>
+      <h3 className="mt-4 title">Add Product</h3>
       <div className="mt-4">
         <CostumInput
           label="Product Name"

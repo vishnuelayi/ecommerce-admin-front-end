@@ -39,7 +39,7 @@ for (let i = 0; i < 46; i++) {
 function BrandList() {
   return (
     <div className="mt-4">
-      <h3 className="mt-4">Brands</h3>
+      <h3 className="mt-4 title">Brands</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>

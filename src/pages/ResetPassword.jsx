@@ -9,7 +9,7 @@ function ResetPassword() {
       style={{ background: "#131921", minHeight: "100vh" }}
     >
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-3 ">
-        <h3 className="text-center">Reset Password</h3>
+        <h3 className="text-center title">Reset Password</h3>
         <p className="text-center">Create new password</p>
         <form action="">
           <CostumInput type="password" label="New Password" id="pass" />

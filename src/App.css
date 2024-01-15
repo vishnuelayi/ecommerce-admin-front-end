@@ -1,3 +1,7 @@
+:root{
+    --color-c3d4da : #c3d4da
+}
+
 .red{
     color: red;
 }
@@ -6,3 +10,12 @@
     color: green;
 }
 
+.form-control{
+    box-shadow: none;
+    border-color: var(--color-c3d4da);
+}
+
+.title{
+    font-size: 28px;
+    font-family: Roboto !important;
+}

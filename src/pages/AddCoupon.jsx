@@ -4,7 +4,7 @@ import CostumInput from "../components/CostumInput";
 function AddCoupon() {
   return (
     <div>
-      <h3 className="mt-4">Add Coupon</h3>
+      <h3 className="mt-4 title">Add Coupon</h3>
       <div className="mt-4">
         <CostumInput
           label="Coupon ID"
