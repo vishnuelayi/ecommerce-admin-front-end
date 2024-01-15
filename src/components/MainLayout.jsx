@@ -70,7 +70,7 @@ const MainLayout = () => {
               label: "Catelog",
               children: [
                 {
-                  key: "product",
+                  key: "add-product",
                   icon: <FaCartPlus className="fs-4" />,
                   label: "Add Product",
                 },
