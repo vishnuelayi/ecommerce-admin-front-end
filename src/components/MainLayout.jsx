@@ -18,6 +18,8 @@ import { RiFileListFill as BlogList } from "react-icons/ri";
 import { GrBlog as BlogCategoryIcon } from "react-icons/gr";
 import { MdOutlineNoteAdd as AddBlogCategory } from "react-icons/md";
 import { IoNotifications as NotificationIcon } from "react-icons/io5";
+import { RiCoupon2Fill as CouponIcon } from "react-icons/ri";
+import { RiAddCircleFill as AddIcon } from "react-icons/ri";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -107,6 +109,16 @@ const MainLayout = () => {
                   icon: <ColorListIcon className="fs-4" />,
                   label: "Color List",
                 },
+                {
+                  key: "add-coupon",
+                  icon: <AddIcon className="fs-4" />,
+                  label: "Add Coupon",
+                },
+                {
+                  key: "coupon-list",
+                  icon: <CouponIcon className="fs-4" />,
+                  label: "Coupon List",
+                }
               ],
             },
             {
