@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CostumInput from "../components/CostumInput";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const despatch = useDispatch();
@@ -25,6 +26,21 @@ function Login() {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  const navigate = useNavigate();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("admin");
+    } else {
+      navigate("");
+    }
+  }, [user, isLoading, isError, isSuccess, message]);
+
   return (
     <div
       className="py-5 h-100 d-flex align-items-center justify-content-center"
@@ -33,6 +49,9 @@ function Login() {
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-3 ">
         <h3 className="text-center title">Login</h3>
         <p className="text-center">Login to continue</p>
+        <div className="error text-center">
+          {message.message == "Rejected" ? "You are not an admin" : ""}
+        </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CostumInput
             type="text"

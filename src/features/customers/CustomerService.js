@@ -1,9 +1,9 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
 
-const login = async(userData) => {
+const getUsers = async() => {
     try{
-        const response = await axios.post(`${base_url}user/admin-login`, userData);
+        const response = await axios.get(`${base_url}user/all-users`);
         if(response.data){
             localStorage.setItem("user", JSON.stringify(response.data));
         }
@@ -15,6 +15,6 @@ const login = async(userData) => {
     
 }
 
-const authService = {login};
+const CustomerService = {getUsers};
 
-export default authService;
+export default CustomerService;
