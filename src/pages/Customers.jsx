@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Table } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../features/customers/CustomerSlice";
+
+let k = 1;
+//for sl.no allocation
 
 const columns = [
   {
@@ -9,40 +12,52 @@ const columns = [
     dataIndex: "id",
   },
   {
-    title: "Order Date",
-    dataIndex: "orderDate",
+    title: "First Name",
+    dataIndex: "firstName",
   },
   {
-    title: "Order ID",
-    dataIndex: "orderId",
+    title: "Last Name",
+    dataIndex: "lastName",
   },
   {
-    title: "Customer",
-    dataIndex: "customer",
+    title: "Email",
+    dataIndex: "email",
   },
   {
-    title: "Status",
-    dataIndex: "status",
+    title: "Phone",
+    dataIndex: "phone",
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    id: i,
-    customer: `Edward King ${i}`,
-    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
-    orderId: `FDA20140${i}`,
-    status: `status ${i}`,
-  });
-}
+
 
 function Customers() {
   const despatch = useDispatch();
   useEffect(() => {
     despatch(getUsers());
   }, []);
+
+  const data = useSelector((state) => state.customer.customers);
+  console.log(data);
+
+
+  const data1 = [];
+for (let i = 0; i < data.length; i++) {
+  if(data[i].role != "admin")
+  {
+    data1.push({
+      key: i,
+      id: k,
+      firstName: data[i].firstname,
+      lastName: data[i].lastname,
+      email: data[i].email,
+      phone: data[i].mobile,
+    });
+    k++;
+  }
+  
+}
+
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Customers</h3>
