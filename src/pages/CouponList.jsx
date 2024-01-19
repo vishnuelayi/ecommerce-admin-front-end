@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getCoupons } from "../features/coupons/CouponSlice";
+
+let k = 1;
+//for sl.no allocation
 
 const columns = [
   {
@@ -7,36 +12,41 @@ const columns = [
     dataIndex: "id",
   },
   {
-    title: "Order Date",
-    dataIndex: "orderDate",
+    title: "Coupon Code",
+    dataIndex: "couponCode",
   },
   {
-    title: "Order ID",
-    dataIndex: "orderId",
+    title: "Discount",
+    dataIndex: "discount",
   },
   {
-    title: "Customer",
-    dataIndex: "customer",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
+    title: "Expiry Date",
+    dataIndex: "expiryDate",
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    id: i,
-    customer: `Edward King ${i}`,
-    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
-    orderId: `FDA20140${i}`,
-    status: `status ${i}`,
-  });
-}
-
 function CouponList() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCoupons());
+  }, []);
+
+  const data = useSelector((state) => state.coupon.coupons);
+  console.log(data);
+
+  const data1 = [];
+  for (let i = 0; i < data.length; i++) {
+    data1.push({
+      key: i,
+      id: k,
+      couponCode: data[i].name,
+      discount: data[i].discount + "%",
+      expiryDate: data[i].expiry.slice(0, 10),
+    });
+    k++;
+  }
+
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Coupons</h3>
