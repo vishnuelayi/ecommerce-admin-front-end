@@ -80,7 +80,7 @@ const config = {
   yField: "sales",
   label: {
     // 可手动配置 label 数据标签位置
-    position: "middle",
+    // position: "middle",
     // 'top', 'bottom', 'middle',
     // 配置样式
     style: {

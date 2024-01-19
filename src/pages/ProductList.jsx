@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../features/product/ProductSlice";
+
+
+let k = 1;
+//for sl.no allocation
 
 const columns = [
   {
@@ -7,36 +13,54 @@ const columns = [
     dataIndex: "id",
   },
   {
-    title: "Order Date",
-    dataIndex: "orderDate",
+    title: "Product Name",
+    dataIndex: "productName",
   },
   {
-    title: "Order ID",
-    dataIndex: "orderId",
+    title: "Category",
+    dataIndex: "category",
   },
   {
-    title: "Customer",
-    dataIndex: "customer",
+    title: "Price",
+    dataIndex: "price",
   },
   {
-    title: "Status",
-    dataIndex: "status",
+    title: "Brand",
+    dataIndex: "brand",
   },
+  {
+    title: "Stock",
+    dataIndex: "stock",
+  }
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    id: i,
-    customer: `Edward King ${i}`,
-    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
-    orderId: `FDA20140${i}`,
-    status: `status ${i}`,
-  });
-}
+
 
 function ProductList() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
+  const data = useSelector((state) => state.product.products);
+  console.log(data);
+
+  const data1 = [];
+for (let i = 0; i < data.length; i++) {
+  data1.push({
+    key: i,
+    id: k,
+    productName: data[i].title,
+    category: data[i].category,
+    price: data[i].price,
+    brand: data[i].brand,
+    stock: data[i].quantity,
+  });
+  k++;
+}
+
+
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Products</h3>

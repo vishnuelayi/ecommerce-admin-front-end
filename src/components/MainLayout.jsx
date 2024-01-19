@@ -22,10 +22,7 @@ import { RiCoupon2Fill as CouponIcon } from "react-icons/ri";
 import { RiAddCircleFill as AddIcon } from "react-icons/ri";
 import {
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  MenuUnfoldOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
