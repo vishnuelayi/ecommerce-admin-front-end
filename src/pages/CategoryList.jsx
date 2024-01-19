@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getProCats } from "../features/product-category/ProductCatSlice";
+
+let k = 1;
+//for sl.no allocation
 
 const columns = [
   {
@@ -7,36 +12,35 @@ const columns = [
     dataIndex: "id",
   },
   {
-    title: "Order Date",
-    dataIndex: "orderDate",
+    title: "Category Name",
+    dataIndex: "categoryName",
   },
-  {
-    title: "Order ID",
-    dataIndex: "orderId",
-  },
-  {
-    title: "Customer",
-    dataIndex: "customer",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-  },
+  
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    id: i,
-    customer: `Edward King ${i}`,
-    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
-    orderId: `FDA20140${i}`,
-    status: `status ${i}`,
-  });
-}
 
 function CategoryList() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProCats());
+  }, []);
+
+  const data = useSelector((state) => state.productcat.productCats);
+  console.log(data);
+
+  const data1 = [];
+for (let i = 0; i < data.length; i++) {
+  data1.push({
+    key: i,
+    id: k,
+   categoryName: data[i].title,
+  });
+  k++;
+}
+
+
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Product Categories</h3>
