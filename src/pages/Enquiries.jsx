@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getEnquiries } from "../features/enquiry/EnquirySlice";
 const columns = [
   {
     title: "S.No",
     dataIndex: "id",
   },
   {
-    title: "Order Date",
-    dataIndex: "orderDate",
-  },
-  {
-    title: "Order ID",
-    dataIndex: "orderId",
-  },
-  {
-    title: "Customer",
+    title: "Name",
     dataIndex: "customer",
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+  },
+  {
+    title: "Comment",
+    dataIndex: "comment",
   },
   {
     title: "Status",
@@ -24,19 +25,31 @@ const columns = [
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    id: i,
-    customer: `Edward King ${i}`,
-    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
-    orderId: `FDA20140${i}`,
-    status: `status ${i}`,
-  });
-}
+
 
 function Enquiries() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getEnquiries());
+  }, []);
+
+  const data = useSelector((state) => state.enquiry.enquiries);
+  // console.log("data", data);
+
+
+  const data1 = [];
+for (let i = 0; i < data.length; i++) {
+  data1.push({
+    key: i,
+    id: i+1,
+    customer: data[i].name,
+    email: data[i].email,
+    comment: data[i].comment,
+    status: data[i].status,
+  });
+}
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Enquiries</h3>

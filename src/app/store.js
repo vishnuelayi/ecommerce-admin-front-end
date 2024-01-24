@@ -8,6 +8,7 @@ import productCatReducer from "../features/product-category/ProductCatSlice";
 import couponReducer from "../features/coupons/CouponSlice";
 import blogReducer from "../features/blog/BlogSlice";
 import blogCatReducer from "../features/blogCat/BlogCatSlice";
+import enquiryReducer from "../features/enquiry/EnquirySlice";
 
 
 export const store = configureStore({
@@ -21,6 +22,8 @@ export const store = configureStore({
     coupon: couponReducer,
     blog: blogReducer,
     blogcat: blogCatReducer,
+    enquiry: enquiryReducer,
+
     // add your reducers for the store here
   },
 });
