@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch } from "react-redux";
+import { getOrders } from "../features/auth/authSlice";
+import { useSelector } from "react-redux";
+
 
 const columns = [
   {
@@ -37,6 +41,16 @@ for (let i = 0; i < 46; i++) {
 }
 
 function Orders() {
+  
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, []);
+
+  const data = useSelector((state) => state.auth.orders);
+  console.log("data:", data);
+
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Orders</h3>

@@ -47,7 +47,15 @@ for (let i = 0; i < data.length; i++) {
     customer: data[i].name,
     email: data[i].email,
     comment: data[i].comment,
-    status: data[i].status,
+    status: (
+      <>
+        <select className="form-control form-select" id="status" name="status">
+          <option value="Reviewing">Reviewing</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Contacted">Contacted</option>
+        </select>
+      </>
+    ),
   });
 }
   return (
