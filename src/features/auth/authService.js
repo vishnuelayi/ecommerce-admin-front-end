@@ -32,7 +32,7 @@ const getOrders = async () => {
   });
 
   if (response.data) {
-    console.log("Orders:", response.data);
+    // console.log("Orders:", response.data);
     // If necessary, store data in Redux store or handle it accordingly
   }
 

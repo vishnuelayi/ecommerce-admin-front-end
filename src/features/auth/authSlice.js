@@ -7,7 +7,7 @@ const getUserFromLocalStorage = localStorage.getItem("user")
 
 const initialState = {
   user: getUserFromLocalStorage,
-  oders: [],
+  orders: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -31,7 +31,7 @@ export const getOrders = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const response = await authService.getOrders();
-      console.log(response);
+      // console.log(response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -65,13 +65,13 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getOrders.fulfilled, (state, action) => {
-        state.oders = action.payload;
+        state.orders = action.payload;
 
         state.isLoading = false;
         state.isSuccess = true;
       })
       .addCase(getOrders.rejected, (state, action) => {
-        state.oders = [];
+        state.orders = [];
 
         state.message = "";
         state.isError = true;
