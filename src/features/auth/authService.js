@@ -25,7 +25,7 @@ const getOrders = async () => {
 
   const { token } = user;
 
-  const response = await axios.get(`${base_url}user/get-orders`, {
+  const response = await axios.get(`${base_url}user/get-all-orders`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
