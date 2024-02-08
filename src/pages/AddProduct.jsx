@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/BrandSlice";
 import { getProCats } from "../features/product-category/ProductCatSlice";
-import { uploadImg } from "../features/upload/uploadSlice";
+import { deleteImg, uploadImg } from "../features/upload/uploadSlice";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -152,14 +152,20 @@ function AddProduct() {
             </Dropzone>
           </div>
 
-          <div className="showimage">
+          <div className="showimages d-flex flex-wrap gap-3">
             {imageData.map((i, j) => {
-              return(
-                <div  key={j} >
-                <img src={i.url} width={200} height={200}/>
-              </div>
-              )
-              
+              return (
+                <div key={j} className="position-relative">
+                  <button
+                    className="btn-close position-absolute "
+                    style={{ top: "4px", right: "4px" }}
+                    onClick={() => {
+                      dispatch(deleteImg(i.asset_id));
+                    }}
+                  ></button>
+                  <img src={i.url} width={200} height={200} />
+                </div>
+              );
             })}
           </div>
 
