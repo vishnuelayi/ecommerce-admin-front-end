@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/BrandSlice";
 import { getProCats } from "../features/product-category/ProductCatSlice";
+import { uploadImg } from "../features/upload/uploadSlice";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -29,8 +30,10 @@ function AddProduct() {
 
   const brandData = useSelector((state) => state.brand.brands);
   const categoryData = useSelector((state) => state.productcat.productCats);
+  const imageData = useSelector((state) => state.upload.images);
   console.log("catData:", categoryData);
   console.log("brandData:", brandData);
+  console.log("images:", imageData);
 
   useEffect(() => {
     dispatch(getBrands());
@@ -38,6 +41,10 @@ function AddProduct() {
 
   useEffect(() => {
     dispatch(getProCats());
+  }, []);
+
+  useEffect(() => {
+    dispatch(uploadImg());
   }, []);
 
   const formik = useFormik({
@@ -129,8 +136,9 @@ function AddProduct() {
           </select>
 
           <div className="bg-white border-1 p-5 text-center">
-            
-            <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+            <Dropzone
+              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+            >
               {({ getRootProps, getInputProps }) => (
                 <section>
                   <div {...getRootProps()}>
@@ -142,6 +150,17 @@ function AddProduct() {
                 </section>
               )}
             </Dropzone>
+          </div>
+
+          <div className="showimage">
+            {imageData.map((i, j) => {
+              return(
+                <div  key={j} >
+                <img src={i.url} width={200} height={200}/>
+              </div>
+              )
+              
+            })}
           </div>
 
           <button className="btn btn-primary mt-3" type="submit">
