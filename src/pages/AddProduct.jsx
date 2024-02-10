@@ -4,11 +4,13 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
 import { useFormik } from "formik";
+import { Select } from "antd";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/BrandSlice";
 import { getProCats } from "../features/product-category/ProductCatSlice";
 import { deleteImg, uploadImg } from "../features/upload/uploadSlice";
+import { getColors } from "../features/colors/ColorSlice";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -28,12 +30,20 @@ function AddProduct() {
   //getting brand and products-category values from the store (Redux Toolkit)
   const dispatch = useDispatch();
 
+  const [color, setColor] = useState("");
+
+  const handleColor = (e) => {
+    setColor(e);
+  }
+
   const brandData = useSelector((state) => state.brand.brands);
   const categoryData = useSelector((state) => state.productcat.productCats);
+  const colorData = useSelector((state) => state.color.colors);
   const imageData = useSelector((state) => state.upload.images);
   console.log("catData:", categoryData);
   console.log("brandData:", brandData);
   console.log("images:", imageData);
+  console.log("color:", colorData);
 
   useEffect(() => {
     dispatch(getBrands());
@@ -46,6 +56,18 @@ function AddProduct() {
   useEffect(() => {
     dispatch(uploadImg());
   }, []);
+
+  useEffect(() => {
+    dispatch(getColors());
+  }, []);
+
+  const colors = [];
+  colorData.forEach((i, j) => {
+    colors.push({
+      _id: i._id,
+      color: i.title,
+    });
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -71,8 +93,8 @@ function AddProduct() {
             i_class="form-control"
             type="text"
             name="title"
-            onChange={formik.handleChange("title")}
-            onBlr={formik.handleBlur("title")}
+            onChange={formik.handleChange}
+            onBlr={formik.handleBlur}
             value={formik.values.title}
             error={formik.touched.title && formik.errors.title}
           />
@@ -91,7 +113,7 @@ function AddProduct() {
             <div className="error">{formik.errors.description}</div>
           )}
 
-          <div className="mt-4">
+          <div className="mt-4 mb-4">
             <CostumInput
               label="Product Price"
               i_id="addPoductPrice"
@@ -117,23 +139,28 @@ function AddProduct() {
             />
           </div>
 
-          <select className="form-control py-3 mb-3 ">
+          <select className="form-control py-3 mb-4 ">
             <option>Select Category</option>
             {categoryData.map((item) => {
               return <option value={item.title}>{item.title}</option>;
             })}
           </select>
 
-          <select className="form-control py-3 mb-3 ">
+          <select className="form-control py-3 mb-4 ">
             <option>Select Brand</option>
             {brandData.map((item) => {
               return <option value={item.title}>{item.title}</option>;
             })}
           </select>
 
-          <select className="form-control py-3 mb-3 ">
-            <option>Select Color</option>
-          </select>
+          <Select
+            mode="multiple"
+            allowClear
+            className="w-100 mb-4"
+            placeholder="Select Color"
+            
+            options={colors}
+          />
 
           <div className="bg-white border-1 p-5 text-center">
             <Dropzone
@@ -152,12 +179,14 @@ function AddProduct() {
             </Dropzone>
           </div>
 
+          {/* display the uploaded image */}
           <div className="showimages d-flex flex-wrap gap-3">
             {imageData.map((i, j) => {
               return (
                 <div key={j} className="position-relative">
                   <button
                     className="btn-close position-absolute "
+                    type="button"
                     style={{ top: "4px", right: "4px" }}
                     onClick={() => {
                       dispatch(deleteImg(i.asset_id));

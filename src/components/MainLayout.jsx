@@ -29,6 +29,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 
 import { getUsers } from "../features/customers/CustomerSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
@@ -252,6 +253,15 @@ const MainLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
+        <ToastContainer
+          position="bottom-center"
+          autoClose={250}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick
+          theme="light"
+
+        />
           <Outlet />
         </Content>
       </Layout>
