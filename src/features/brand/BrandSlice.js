@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import BrandService from "./BrandService";
 
-
 const initialState = {
   brands: [],
   isError: false,
@@ -72,5 +71,7 @@ export const brandSlice = createSlice({
         state.message = action.payload;
       }),
 });
+
+
 
 export default brandSlice.reducer;

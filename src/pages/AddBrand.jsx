@@ -22,12 +22,11 @@ function AddBrand() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Brand Added Successfully");
+      toast.success("Brand created successfully!");
+    } else if (isError) {
+      toast.error("Failed to create brand. Please try again.");
     }
-    if (isError) {
-      toast.error("Something went wrong");
-    }
-  }, [isError, isSuccess, isLoading]);
+  }, [isLoading, isSuccess, isError]);
 
   const formik = useFormik({
     initialValues: {
