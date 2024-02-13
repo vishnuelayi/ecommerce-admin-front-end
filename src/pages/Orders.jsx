@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch } from "react-redux";
+import { getOrders } from "../features/auth/authSlice";
+import { useSelector } from "react-redux";
+
+const data1 = [];
 
 const columns = [
   {
@@ -24,19 +29,73 @@ const columns = [
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    id: i,
-    customer: `Edward King ${i}`,
-    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
-    orderId: `FDA20140${i}`,
-    status: `status ${i}`,
-  });
-}
-
 function Orders() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, []);
+
+  const orderState = useSelector((state) => state.auth.orders);
+  // console.log(orderState);
+
+
+
+  if (orderState) {
+    for (let i = 0; i < orderState.length; i++) {
+      data1.push({
+        key: i,
+        id: i + 1,
+        customer: orderState[i].orderby.firstname,
+        orderDate: orderState[i].createdAt.slice(0, 10),
+
+        status: (
+                  <>
+                    <select
+                      className="form-control form-select"
+                      id="status"
+                      name="status"
+                    >
+                      <option value="orderPlaced">Order Placed</option>
+                      <option value="processing">Processing</option>
+                      <option value="shipped">Shipped</option>
+                      <option value="delivered">Delivered</option>
+                    </select>
+                  </>
+                ),
+   
+    
+      });
+    }
+  }
+
+
+
+  // if (orderState) {
+  //   for (let i = 0; i < orderState.length; i++) {
+  //     data1.push({
+  //       key: i,
+  //       id: i + 1,
+  //       customer: orderState[i].orderby.firstname,
+  //       orderDate: orderState[i].createdAt.slice(0, 10),
+  //       product: orderState[i].products[i].product.title,
+  //       status: (
+  //         <>
+  //           <select
+  //             className="form-control form-select"
+  //             id="status"
+  //             name="status"
+  //           >
+  //             <option value="Reviewing">Order Placed</option>
+  //             <option value="In Progress">Processing</option>
+  //             <option value="Contacted">Shipped</option>
+  //           </select>
+  //         </>
+  //       ),
+  //     });
+  //   }
+  // }
+
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Orders</h3>

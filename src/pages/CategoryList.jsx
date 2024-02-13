@@ -3,8 +3,6 @@ import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getProCats } from "../features/product-category/ProductCatSlice";
 
-let k = 1;
-//for sl.no allocation
 
 const columns = [
   {
@@ -34,10 +32,10 @@ function CategoryList() {
 for (let i = 0; i < data.length; i++) {
   data1.push({
     key: i,
-    id: k,
+    id: i+1,
    categoryName: data[i].title,
   });
-  k++;
+
 }
 
 

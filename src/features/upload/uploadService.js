@@ -1,72 +1,66 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
 
-const getProCats = async () => {
+const uploadImage = async (data) => {
   try {
-    // Retrieve the user object from local storage
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user || !user.token) {
-      // Handle the case where there's no user object or no token property
       console.error("No user object or token found");
-      // You might want to redirect the user to the login page or handle this case differently
       return null;
     }
 
     const { token } = user;
 
-    const response = await axios.get(`${base_url}category/`, {
+    const response = await axios.post(`${base_url}upload/`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (response.data) {
-      console.log("Categories:", response.data);
+    if (response) {
+      console.log("Uploads:", response);
       // If necessary, store data in Redux store or handle it accordingly
       // dispatch(setUsers(response.data));
     }
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching users:", error.message);
+    console.error("Error fetching images:", error.message);
     throw error;
   }
 };
 
-const addCategory = async (data) => {
+const deleteImage = async (id) => {
   try {
-    // Retrieve the user object from local storage
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user || !user.token) {
-      // Handle the case where there's no user object or no token property
       console.error("No user object or token found");
-      // You might want to redirect the user to the login page or handle this case differently
       return null;
     }
 
     const { token } = user;
 
-    const response = await axios.post(`${base_url}category/`,data, {
+    const response = await axios.delete(`${base_url}upload/deleteimage/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (response.data) {
-      console.log("Added Category:", response.data);
+    if (response) {
+      console.log("Uploads:", response);
       // If necessary, store data in Redux store or handle it accordingly
       // dispatch(setUsers(response.data));
     }
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching users:", error.message);
+    console.error("Error deleting image:", error.message);
     throw error;
   }
 };
 
-const ProductCatService = { getProCats, addCategory };
+const UploadService = { uploadImage, deleteImage };
 
-export default ProductCatService;
+export default UploadService;

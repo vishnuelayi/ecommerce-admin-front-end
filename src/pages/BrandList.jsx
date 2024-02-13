@@ -3,8 +3,7 @@ import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/BrandSlice";
 
-let k = 1;
-//for sl.no allocation
+
 
 const columns = [
   {
@@ -31,10 +30,10 @@ function BrandList() {
   for (let i = 0; i < data.length; i++) {
     data1.push({
       key: i,
-      id: k,
+      id: i+1,
       brandName: data[i].title,
     });
-    k++;
+  
   }
 
   return (

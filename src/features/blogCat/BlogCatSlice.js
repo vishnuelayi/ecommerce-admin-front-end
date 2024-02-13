@@ -1,19 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import ProductCatService from "./ProductCatService";
+import BlogCategoryService from "./BlogCatService";
 
 const initialState = {
-  productCats: [],
+  blogcats: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
   message: "",
 };
 
-export const getProCats = createAsyncThunk(
-  "category/get-categories",
+export const getBlogCategories = createAsyncThunk(
+  "blog/get-blogcategories",
   async (thunkAPI) => {
     try {
-      const response = await ProductCatService.getProCats();
+      const response = await BlogCategoryService.getBlogCategories();
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -21,54 +21,54 @@ export const getProCats = createAsyncThunk(
   }
 );
 
-export const addCategory = createAsyncThunk(
-  "category/add-category",
+export const addBlogCat = createAsyncThunk(
+  "blog/add-blogcategory",
   async (data, thunkAPI) => {
     try {
-      const response = await ProductCatService.addCategory(data);
+      const response = await BlogCategoryService.addBlogCategory(data);
       return response;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
-export const productCatSlice = createSlice({
-  name: "productCats",
+export const blogCatSlice = createSlice({
+  name: "blogcats",
   initialState,
   reducers: {},
   extraReducers: (builder) =>
     builder
-      .addCase(getProCats.pending, (state) => {
+      .addCase(getBlogCategories.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getProCats.fulfilled, (state, action) => {
+      .addCase(getBlogCategories.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.productCats = action.payload;
+        state.blogcats = action.payload;
       })
-      .addCase(getProCats.rejected, (state, action) => {
-        state.productCats = [];
+      .addCase(getBlogCategories.rejected, (state, action) => {
+        state.blogcats = [];
         state.message = action.payload.message;
         state.isError = true;
         state.isLoading = false;
       })
-      .addCase(addCategory.pending, (state) => {
+      .addCase(addBlogCat.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addCategory.fulfilled, (state, action) => {
+      .addCase(addBlogCat.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createPro = action.payload;
+        state.createdBC = action.payload;
       })
-      .addCase(addCategory.rejected, (state, action) => {
-        state.createPro = [];
+      .addCase(addBlogCat.rejected, (state, action) => {
+        state.createdBC = [];
         state.message = action.payload.message;
         state.isError = true;
         state.isLoading = false;
       }),
 });
 
-export default productCatSlice.reducer;
+export default blogCatSlice.reducer;

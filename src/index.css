@@ -75,3 +75,8 @@ main::-webkit-scrollbar{
   color: red;
   font-size: 12px;
 }
+
+.showimages{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}

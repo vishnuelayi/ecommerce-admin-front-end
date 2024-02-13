@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getBlogs } from "../features/blog/BlogSlice";
 
 const columns = [
   {
@@ -7,36 +9,48 @@ const columns = [
     dataIndex: "id",
   },
   {
-    title: "Order Date",
-    dataIndex: "orderDate",
+    title: "Title",
+    dataIndex: "title",
   },
   {
-    title: "Order ID",
-    dataIndex: "orderId",
+    title: "Description",
+    dataIndex: "description",
   },
   {
-    title: "Customer",
-    dataIndex: "customer",
+    title: "Category",
+    dataIndex: "category",
   },
   {
-    title: "Status",
-    dataIndex: "status",
+    title: "Author",
+    dataIndex: "author",
   },
 ];
 
-const data1 = [];
-for (let i = 0; i < 46; i++) {
+
+function BlogList() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBlogs());
+  }, []);
+
+  const data = useSelector((state) => state.blog.blogs);
+  // console.log("data", data);
+
+  const data1 = [];
+for (let i = 0; i < data.length; i++) {
   data1.push({
     key: i,
-    id: i,
-    customer: `Edward King ${i}`,
-    orderDate: `2014-0${Math.floor(i / 10)}-0${i % 10}`,
-    orderId: `FDA20140${i}`,
-    status: `status ${i}`,
+    id: i + 1,
+    title: data[i].title,
+    description: data[i].description,
+    category: data[i].category,
+    author: data[i].auther,
   });
 }
 
-function BlogList() {
+
+
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Blog List</h3>

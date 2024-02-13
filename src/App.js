@@ -22,6 +22,7 @@ import AddBrand from "./pages/AddBrand";
 import AddCoupon from "./pages/AddCoupon";
 import CouponList from "./pages/CouponList";
 import AddProduct from "./pages/AddProduct";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (

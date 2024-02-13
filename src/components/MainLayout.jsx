@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiDashboard2Line } from "react-icons/ri";
 import { IoPeople } from "react-icons/io5";
 import { FaCartShopping } from "react-icons/fa6";
@@ -26,8 +26,24 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
+
+import { getUsers } from "../features/customers/CustomerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
+  const {firstname} = useSelector((state) => state.auth.user);
+
+
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -201,7 +217,7 @@ const MainLayout = () => {
                 </div>
 
                 <div>
-                  <h5 className="m-0 p-0">Joseph Ann</h5>
+                  <h5 className="m-0 p-0">{firstname}</h5>
                   {/* <p className="p-0 m-0">joshephann@gamil.com</p> */}
                 </div>
                 <div
@@ -237,6 +253,15 @@ const MainLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
+        <ToastContainer
+          position="bottom-center"
+          autoClose={250}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick
+          theme="light"
+
+        />
           <Outlet />
         </Content>
       </Layout>

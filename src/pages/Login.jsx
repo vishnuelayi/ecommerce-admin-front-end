@@ -12,7 +12,7 @@ function Login() {
 
   let schema = Yup.object().shape({
     email: Yup.string().email("Invalid email address").required("Required"),
-    password: Yup.string().required("Required"),
+    password: Yup.string().required("Password required"),
   });
 
   const formik = useFormik({

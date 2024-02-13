@@ -1,7 +1,7 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
 
-const getProCats = async () => {
+const getBlogCategories = async () => {
   try {
     // Retrieve the user object from local storage
     const user = JSON.parse(localStorage.getItem("user"));
@@ -15,26 +15,26 @@ const getProCats = async () => {
 
     const { token } = user;
 
-    const response = await axios.get(`${base_url}category/`, {
+    const response = await axios.get(`${base_url}blogcategory/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     if (response.data) {
-      console.log("Categories:", response.data);
+      console.log("Blog Categories:", response.data);
       // If necessary, store data in Redux store or handle it accordingly
       // dispatch(setUsers(response.data));
     }
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching users:", error.message);
+    console.error("Error fetching brands:", error.message);
     throw error;
   }
 };
 
-const addCategory = async (data) => {
+const addBlogCategory = async (data) => {
   try {
     // Retrieve the user object from local storage
     const user = JSON.parse(localStorage.getItem("user"));
@@ -48,25 +48,25 @@ const addCategory = async (data) => {
 
     const { token } = user;
 
-    const response = await axios.post(`${base_url}category/`,data, {
+    const response = await axios.post(`${base_url}blogcategory/`,data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     if (response.data) {
-      console.log("Added Category:", response.data);
+      console.log("Blog Categories:", response.data);
       // If necessary, store data in Redux store or handle it accordingly
       // dispatch(setUsers(response.data));
     }
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching users:", error.message);
+    console.error("Error fetching brands:", error.message);
     throw error;
   }
 };
 
-const ProductCatService = { getProCats, addCategory };
+const BlogCategoryService = { getBlogCategories, addBlogCategory };
 
-export default ProductCatService;
+export default BlogCategoryService;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
 
-const getProCats = async () => {
+const getColors = async () => {
   try {
     // Retrieve the user object from local storage
     const user = JSON.parse(localStorage.getItem("user"));
@@ -15,7 +15,7 @@ const getProCats = async () => {
 
     const { token } = user;
 
-    const response = await axios.get(`${base_url}category/`, {
+    const response = await axios.get(`${base_url}color/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -34,7 +34,8 @@ const getProCats = async () => {
   }
 };
 
-const addCategory = async (data) => {
+
+const addColor = async (data) => {
   try {
     // Retrieve the user object from local storage
     const user = JSON.parse(localStorage.getItem("user"));
@@ -48,14 +49,14 @@ const addCategory = async (data) => {
 
     const { token } = user;
 
-    const response = await axios.post(`${base_url}category/`,data, {
+    const response = await axios.post(`${base_url}color/`,data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     if (response.data) {
-      console.log("Added Category:", response.data);
+      console.log("Categories:", response.data);
       // If necessary, store data in Redux store or handle it accordingly
       // dispatch(setUsers(response.data));
     }
@@ -67,6 +68,6 @@ const addCategory = async (data) => {
   }
 };
 
-const ProductCatService = { getProCats, addCategory };
+const ColorService = { getColors, addColor };
 
-export default ProductCatService;
+export default ColorService;
