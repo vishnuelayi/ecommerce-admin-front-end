@@ -1,71 +1,113 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CostumInput from "../components/CostumInput";
 import ReactQuill from "react-quill";
+import * as Yup from "yup";
 import "react-quill/dist/quill.snow.css";
-import { InboxOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import Dropzone from "react-dropzone";
+import { getBlogCategories } from "../features/blogCat/BlogCatSlice";
+import { deleteImg, uploadImg } from "../features/upload/uploadSlice";
+import { useFormik } from "formik";
+import { values } from "@ant-design/plots/es/core/utils";
 
-const { Dragger } = Upload;
-
-const props = {
-  name: "file",
-  multiple: true,
-  action: "https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
+const validationSchema = Yup.object({
+  title: Yup.string().required("Title is required"),
+  category: Yup.string().required("Category is required"),
+});
 
 function AddBlog() {
-  const [desc, setDesc] = useState("");
+  const dispatch = useDispatch();
 
-  const handleDesc = (e) => {
-    setDesc(e);
-  };
+  const blgCat = useSelector((state) => state.blogcat.blogcats);
+  const imageData = useSelector((state) => state.upload.images);
+
+  useEffect(() => {
+    dispatch(getBlogCategories());
+  }, []);
+
+  useEffect(() => {
+    dispatch(uploadImg());
+  }, []);
+
+  const formik = useFormik({
+    initialValues:{
+      title:"",
+      category:""
+      
+    },
+    validationSchema:validationSchema,
+    onSubmit:(values) => {
+      alert(JSON.stringify(values))
+    }
+  })
+
   return (
     <div>
-      <Dragger {...props}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">
-          Click or drag file to this area to upload
-        </p>
-        <p className="ant-upload-hint">
-          Support for a single or bulk upload. Strictly prohibited from
-          uploading company data or other banned files.
-        </p>
-      </Dragger>
       <h3 className="mt-4 title">Add Blog</h3>
 
       <div>
-        <form action="">
-        <div className="mt-4">
-        <CostumInput type="text" label="Blog Title" name="title" />
-        </div>
-          
-          <select className="form-control py-3 mt-3" name="category">
+        <form onSubmit={formik.handleSubmit}>
+          <div className="mt-4">
+            <CostumInput 
+            label="Blog Title"
+            i_id="blogTitle"
+            i_class = "form-control"
+            type = "text"
+            value= {formik.values.title}
+            onChange={formik.handleChange}
+            onBlur = {formik.handleBlur}
+            error={formik.touched.title && formik.errors.title} />
+            
+          </div>
+
+          <select className="form-control py-3 mt-3 mb-3" name="category">
             <option value="">Select Blog Category</option>
+            {blgCat.map((i, j) => {
+              return (
+                <option key={j} value={i.title}>
+                  {i.title}
+                </option>
+              );
+            })}
           </select>
-          <ReactQuill
-            theme="snow"
-            value={desc}
-            onChange={(e) => {
-              handleDesc(e);
-            }}
-            placeholder="Write your blog here..."
-          />
+          <ReactQuill theme="snow" placeholder="Write your blog here..." />
+
+          <div className="bg-white border-1 p-5 text-center mt-3">
+            <Dropzone
+              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <p>
+                      Drag 'n' drop some files here, or click to select files
+                    </p>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
+
+          {/* display the uploaded image */}
+          <div className="showimages d-flex flex-wrap gap-3">
+            {imageData.map((i, j) => {
+              return (
+                <div key={j} className="position-relative">
+                  <button
+                    className="btn-close position-absolute "
+                    type="button"
+                    style={{ top: "4px", right: "4px" }}
+                    onClick={() => {
+                      dispatch(deleteImg(i.asset_id));
+                    }}
+                  ></button>
+                  <img src={i.url} width={200} height={200} />
+                </div>
+              );
+            })}
+          </div>
+
           <button type="submit" className="btn btn-primary mt-3">
             Add Blog
           </button>

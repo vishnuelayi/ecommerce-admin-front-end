@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description is required"),
 });
 
-//for image upload
+
 
 function AddProduct() {
   //getting brand and products-category values from the store (Redux Toolkit)
