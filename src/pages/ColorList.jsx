@@ -3,8 +3,7 @@ import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getColors } from "../features/colors/ColorSlice";
 
-let k = 1;
-//for sl.no allocation
+
 
 const columns = [
   {
@@ -36,11 +35,11 @@ function ColorList() {
 for (let i = 0; i < data.length; i++) {
   data1.push({
     key: i,
-    id: k,
+    id: i+1,
     colorName: data[i].title,
    
   });
-  k++;
+
 }
 
   return (

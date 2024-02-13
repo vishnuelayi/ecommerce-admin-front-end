@@ -9,14 +9,29 @@ const initialState = {
   message: "",
 };
 
-export const getBlogCategories = createAsyncThunk("blog/get-blogcategories", async (thunkAPI) => {
-  try {
-    const response = await BlogCategoryService.getBlogCategories();
-    return response;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const getBlogCategories = createAsyncThunk(
+  "blog/get-blogcategories",
+  async (thunkAPI) => {
+    try {
+      const response = await BlogCategoryService.getBlogCategories();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
+
+export const addBlogCat = createAsyncThunk(
+  "blog/add-blogcategory",
+  async (data, thunkAPI) => {
+    try {
+      const response = await BlogCategoryService.addBlogCategory(data);
+      return response;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const blogCatSlice = createSlice({
   name: "blogcats",
@@ -38,8 +53,22 @@ export const blogCatSlice = createSlice({
         state.message = action.payload.message;
         state.isError = true;
         state.isLoading = false;
+      })
+      .addCase(addBlogCat.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addBlogCat.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.createdBC = action.payload;
+      })
+      .addCase(addBlogCat.rejected, (state, action) => {
+        state.createdBC = [];
+        state.message = action.payload.message;
+        state.isError = true;
+        state.isLoading = false;
       }),
 });
-
 
 export default blogCatSlice.reducer;
