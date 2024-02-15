@@ -8,9 +8,10 @@ import Dropzone from "react-dropzone";
 import { getBlogCategories } from "../features/blogCat/BlogCatSlice";
 import { deleteImg, uploadImg } from "../features/upload/uploadSlice";
 import { useFormik } from "formik";
-import { addBlog } from "../features/blog/BlogSlice";
+import { addBlog, resetState } from "../features/blog/BlogSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
 
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
@@ -57,6 +58,7 @@ function AddBlog() {
       dispatch(addBlog(values));
       formik.resetForm();
       setTimeout(() => {
+        dispatch(resetState())
         navigate("/admin/blog-list");
       }, 3000);
     },
@@ -107,6 +109,7 @@ function AddBlog() {
             name="description"
             onChange={formik.handleChange("description")}
             value={formik.values.description}
+            className="mt-3"
           />
 
           <div className="error">

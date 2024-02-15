@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import CouponService from "./CouponService";
 
 const initialState = {
@@ -9,14 +9,31 @@ const initialState = {
   message: "",
 };
 
-export const getCoupons = createAsyncThunk("coupon/get-coupons", async (thunkAPI) => {
-  try {
-    const response = await CouponService.getCoupons();
-    return response;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const getCoupons = createAsyncThunk(
+  "coupon/get-coupons",
+  async (thunkAPI) => {
+    try {
+      const response = await CouponService.getCoupons();
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
+
+export const addCoupon = createAsyncThunk(
+  "coupon/add-coupon",
+  async (data, thunkAPI) => {
+    try {
+      const response = await CouponService.addCoupon(data);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const resetState = createAction("Reset_all")
 
 export const CouponSlice = createSlice({
   name: "coupons",
@@ -38,8 +55,22 @@ export const CouponSlice = createSlice({
         state.message = action.payload.message;
         state.isError = true;
         state.isLoading = false;
-      }),
+      })
+      .addCase(addCoupon.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addCoupon.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.createdCoupon = action.payload;
+      })
+      .addCase(addCoupon.rejected, (state, action) => {
+        state.createdCoupon = [];
+        state.message = action.payload.message;
+        state.isError = true;
+        state.isLoading = false;
+      }).addCase(resetState, () => initialState)
 });
-
 
 export default CouponSlice.reducer;
