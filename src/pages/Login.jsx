@@ -23,7 +23,7 @@ function Login() {
     validationSchema: schema,
     onSubmit: (values) => {
       despatch(login(values));
-      alert(JSON.stringify(values, null, 2));
+      
     },
   });
 

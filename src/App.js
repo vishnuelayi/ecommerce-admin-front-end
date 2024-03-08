@@ -22,7 +22,8 @@ import AddBrand from "./pages/AddBrand";
 import AddCoupon from "./pages/AddCoupon";
 import CouponList from "./pages/CouponList";
 import AddProduct from "./pages/AddProduct";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import SingleOrder from "./pages/SingleOrder";
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
           <Route path="add-blog" element={<AddBlog />} />
           <Route path="add-blog-category" element={<AddBlogCat />} />
           <Route path="orders" element={<Orders />} />
+
+          <Route path="orders/:orderId" element={<SingleOrder />} />
+
           <Route path="customers" element={<Customers />} />
           <Route path="color" element={<AddColor />} />
           <Route path="color-list" element={<ColorList />} />

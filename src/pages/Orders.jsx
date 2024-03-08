@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { useDispatch } from "react-redux";
-import { getOrders } from "../features/auth/authSlice";
+import { getOrders, updateOrderStatus } from "../features/auth/authSlice";
 import { useSelector } from "react-redux";
-
-const data1 = [];
+import { Link } from "react-router-dom";
 
 const columns = [
   {
@@ -16,91 +15,93 @@ const columns = [
     dataIndex: "orderDate",
   },
   {
-    title: "Order ID",
-    dataIndex: "orderId",
+    title: "Item Count",
+    dataIndex: "itemCount",
   },
   {
     title: "Customer",
     dataIndex: "customer",
   },
   {
+    title: "Amount",
+    dataIndex: "amount",
+  },
+  {
     title: "Status",
     dataIndex: "status",
+  },
+  {
+    title: "Order Details",
+    dataIndex: "orderDetails",
+    render: (text, record) => (
+      <Link to={`${record?.orderDetails?.itemId}`}>View Details</Link>
+    ),
   },
 ];
 
 function Orders() {
   const dispatch = useDispatch();
+  const orderState = useSelector((state) => state?.auth?.orders);
+  const [status, setStatus] = useState({});
+  const [orderData, setOrderData] = useState([]);
 
   useEffect(() => {
     dispatch(getOrders());
   }, []);
 
-  const orderState = useSelector((state) => state.auth.orders);
-  // console.log(orderState);
+  useEffect(() => {
+    if (Object.keys(status).length !== 0) {
+      dispatch(updateOrderStatus(status));
+    }
+  }, [status]);
 
-
-
-  if (orderState) {
-    for (let i = 0; i < orderState.length; i++) {
+  useEffect(() => {
+    let data1 = [];
+    for (let i = 0; i < orderState?.length; i++) {
       data1.push({
         key: i,
         id: i + 1,
-        customer: orderState[i].orderby.firstname,
-        orderDate: orderState[i].createdAt.slice(0, 10),
-
+        customer:
+        <span style={{ fontWeight: "bold" }}>
+        {orderState[i]?.userId?.firstname} {orderState[i]?.userId?.lastname}
+      </span>,
+        orderDate: orderState[i]?.createdAt?.split("T")[0],
+        itemCount: orderState[i]?.orderItems?.length,
+        amount: orderState[i]?.totalPriceAfterDiscount,
         status: (
-                  <>
-                    <select
-                      className="form-control form-select"
-                      id="status"
-                      name="status"
-                    >
-                      <option value="orderPlaced">Order Placed</option>
-                      <option value="processing">Processing</option>
-                      <option value="shipped">Shipped</option>
-                      <option value="delivered">Delivered</option>
-                    </select>
-                  </>
-                ),
-   
-    
+          <>
+            <select
+              className="form-control form-select"
+              id="status"
+              name="status"
+              defaultValue={orderState[i]?.orderStatus}
+              onChange={(e) =>
+                setStatus({
+                  itemId: orderState[i]?._id,
+                  updatedStatus: e.target.value,
+                })
+              }
+            >
+              <option value="ordered">Ordered</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+            </select>
+          </>
+        ),
+        orderDetails: {
+          itemId: orderState[i]?._id,
+        },
       });
     }
-  }
-
-
-
-  // if (orderState) {
-  //   for (let i = 0; i < orderState.length; i++) {
-  //     data1.push({
-  //       key: i,
-  //       id: i + 1,
-  //       customer: orderState[i].orderby.firstname,
-  //       orderDate: orderState[i].createdAt.slice(0, 10),
-  //       product: orderState[i].products[i].product.title,
-  //       status: (
-  //         <>
-  //           <select
-  //             className="form-control form-select"
-  //             id="status"
-  //             name="status"
-  //           >
-  //             <option value="Reviewing">Order Placed</option>
-  //             <option value="In Progress">Processing</option>
-  //             <option value="Contacted">Shipped</option>
-  //           </select>
-  //         </>
-  //       ),
-  //     });
-  //   }
-  // }
+    setOrderData(data1);
+  }, [orderState]);
 
   return (
     <div className="mt-4">
       <h3 className="mt-4 title">Orders</h3>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Table columns={columns} dataSource={orderData} />
       </div>
     </div>
   );
