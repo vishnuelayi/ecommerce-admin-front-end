@@ -38,6 +38,12 @@ const columns = [
 
 function Dashboard() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMonthlyIncome());
+    dispatch(getYearlyIncome());
+    dispatch(getOrders());
+  }, []);
   const monthlyIncomeState = useSelector((state) => state?.auth?.monthlyItem);
   const yearlyIncomeState = useSelector((state) => state?.auth?.yearlyItem);
   const allOrderState = useSelector((state) => state?.auth?.orders)
@@ -45,11 +51,7 @@ function Dashboard() {
   const [dataMonthly, setDataMonthly] = useState([]);
   const [salesCount, setSalesCount] = useState([]);
 
-  useEffect(() => {
-    dispatch(getMonthlyIncome());
-    dispatch(getYearlyIncome());
-    dispatch(getOrders());
-  }, []);
+
 
   useEffect(() => {
     let saleData = [];

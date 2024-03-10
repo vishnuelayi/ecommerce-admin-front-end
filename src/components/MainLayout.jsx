@@ -40,7 +40,7 @@ const MainLayout = () => {
     dispatch(getUsers());
   }, []);
 
-  const {firstname} = useSelector((state) => state.auth.user);
+  const {firstname} = useSelector((state) => state?.auth?.user);
 
 
 

@@ -24,15 +24,17 @@ import CouponList from "./pages/CouponList";
 import AddProduct from "./pages/AddProduct";
 import "react-toastify/dist/ReactToastify.css";
 import SingleOrder from "./pages/SingleOrder";
+import { OpenRoutes } from "./routing/OpenRoutes";
+import { PrivateRoutes } from "./routing/PrivateRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<OpenRoutes><Login /></OpenRoutes>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/admin" element={<MainLayout />}>
+        <Route path="/admin" element={<PrivateRoutes><MainLayout /></PrivateRoutes>}>
           <Route index element={<Dashboard />} />
           <Route path="enquiries" element={<Enquiries />} />
           <Route path="blog-list" element={<BlogList />} />
