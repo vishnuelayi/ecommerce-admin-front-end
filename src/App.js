@@ -22,16 +22,19 @@ import AddBrand from "./pages/AddBrand";
 import AddCoupon from "./pages/AddCoupon";
 import CouponList from "./pages/CouponList";
 import AddProduct from "./pages/AddProduct";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import SingleOrder from "./pages/SingleOrder";
+import { OpenRoutes } from "./routing/OpenRoutes";
+import { PrivateRoutes } from "./routing/PrivateRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<OpenRoutes><Login /></OpenRoutes>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/admin" element={<MainLayout />}>
+        <Route path="/admin" element={<PrivateRoutes><MainLayout /></PrivateRoutes>}>
           <Route index element={<Dashboard />} />
           <Route path="enquiries" element={<Enquiries />} />
           <Route path="blog-list" element={<BlogList />} />
@@ -39,6 +42,9 @@ function App() {
           <Route path="add-blog" element={<AddBlog />} />
           <Route path="add-blog-category" element={<AddBlogCat />} />
           <Route path="orders" element={<Orders />} />
+
+          <Route path="orders/:orderId" element={<SingleOrder />} />
+
           <Route path="customers" element={<Customers />} />
           <Route path="color" element={<AddColor />} />
           <Route path="color-list" element={<ColorList />} />

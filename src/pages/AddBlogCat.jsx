@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { addBlogCat } from "../features/blogCat/BlogCatSlice";
+import { addBlogCat,resetState } from "../features/blogCat/BlogCatSlice";
 
 
 
@@ -41,6 +41,7 @@ function AddBlogCategory () {
       dispatch(addBlogCat(values))
       formik.resetForm();
       setTimeout(() => {
+        // dispatch(resetState())
         navigate("/admin/blog-category");
       }, 3000);
     },

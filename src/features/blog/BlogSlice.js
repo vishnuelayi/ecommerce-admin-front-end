@@ -2,14 +2,6 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 import BlogService from "./BlogService";
 
-const initialState = {
-  blogs: [],
-  isError: false,
-  isLoading: false,
-  isSuccess: false,
-  message: "",
-};
-
 export const getBlogs = createAsyncThunk("blog/get-blogs", async (thunkAPI) => {
   try {
     const response = await BlogService.getBlogs();
@@ -31,6 +23,16 @@ export const addBlog = createAsyncThunk(
   }
 );
 
+export const resetState = createAction("reset-state");
+
+const initialState = {
+  blogs: [],
+  isError: false,
+  isLoading: false,
+  isSuccess: false,
+  message: "",
+};
+
 export const blogSlice = createSlice({
   name: "blogs",
   initialState,
@@ -51,19 +53,23 @@ export const blogSlice = createSlice({
         state.message = action.payload.message;
         state.isError = true;
         state.isLoading = false;
-      }).addCase(addBlog.pending, (state) => {
+      })
+      .addCase(addBlog.pending, (state) => {
         state.isLoading = true;
-      }).addCase(addBlog.fulfilled, (state, action) => {
+      })
+      .addCase(addBlog.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdBlog = action.payload
-      }).addCase(addBlog.rejected,(state, action) => {
+        state.createdBlog = action.payload;
+      })
+      .addCase(addBlog.rejected, (state, action) => {
         state.createdBlog = [];
         state.message = action.payload.message;
         state.isError = true;
         state.isLoading = false;
       })
+      .addCase(resetState, () => initialState),
 });
 
 export default blogSlice.reducer;

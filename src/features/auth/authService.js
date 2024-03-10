@@ -1,5 +1,8 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+import { Token } from "../../utils/tokenConfig";
+
+const token = Token();
 
 const login = async (userData) => {
   try {
@@ -14,31 +17,77 @@ const login = async (userData) => {
 };
 
 const getOrders = async () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  if (!user || !user.token) {
-    // Handle the case where there's no user object or no token property
-    console.error("No user object or token found");
-    // You might want to redirect the user to the login page or handle this case differently
-    return null;
-  }
-
-  const { token } = user;
-
   const response = await axios.get(`${base_url}user/get-all-orders`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  if (response.data) {
-    // console.log("Orders:", response.data);
-    // If necessary, store data in Redux store or handle it accordingly
-  }
-
   return response.data;
 };
 
-const authService = { login, getOrders };
+const getSingleOrder = async (id) => {
+  try {
+    const response = await axios.get(`${base_url}user/order/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const getMonthlyIncome = async () => {
+  try {
+    const response = await axios.get(`${base_url}user/monthlyIncome`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching brands:", error.message);
+    throw error;
+  }
+};
+
+const getYearlyIncome = async () => {
+  try {
+    const response = await axios.get(`${base_url}user/yearlyWiseOrderCount`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching brands:", error.message);
+    throw error;
+  }
+};
+
+const updateOrderStatus = async (data) => {
+  try {
+    const response = await axios.put(`${base_url}user/oders/status`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+const authService = {
+  login,
+  getOrders,
+  getMonthlyIncome,
+  getYearlyIncome,
+  updateOrderStatus,
+  getSingleOrder,
+};
 
 export default authService;
